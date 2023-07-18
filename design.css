@@ -1,0 +1,11 @@
+/* selector{ property:value;} */
+body{
+    color: brown;
+}
+p{
+    color: rgb(12, 22, 245);
+
+}
+#email{
+    color: red;
+}

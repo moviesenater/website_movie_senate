@@ -1,0 +1,94 @@
+<div id="image-track" data-mouse-down-at="0" data-prev-percentage="0">
+  <pre style="color: white;">
+  Action</pre>  
+  <img class="image"
+     src="Images/Action.jpg" draggable="false" />
+     <pre style="color: white;">
+      Adventure</pre>
+     <img class="image" 
+     src="Images/Adventure.jpg" draggable="false" />
+     <pre style="color: white;">
+      Animation</pre>
+     <img class="image" 
+     src="Images/Animation.jpg" draggable="false" />
+     <pre style="color: white;">
+      Comedy</pre>
+     <img class="image" 
+     src="Images/Comedy.jpg" draggable="false" />
+     <pre style="color: white;">
+      Crime</pre>
+     <img class="image" 
+    src="Images/Crime.jpg" draggable="false" />
+    <pre style="color: white;">
+      Documentary</pre>
+    <img class="image" 
+    src="Images/Documentary.jpg" draggable="false" />
+    <pre style="color: white;">
+      Drama</pre>
+    <img class="image" 
+    src="Images/Drama_oppenheimer.jpg" draggable="false" />
+    <pre style="color: white;">
+      Romance</pre>
+    <img class="image" 
+    src="Images/Romance.jpg" draggable="true" />
+  </div>
+  
+  <a id="source-link" class="meta-link" href="https://kmit.in" target="_blank">
+    <i class="fa-solid fa-link"></i>
+    <span>kmit</span>
+  </a>
+  
+  <a id="yt-link" class="meta-link" href="https://kmitstudent.in" target="_blank">
+    <i class="fa-brands fa-youtube"></i>
+    <span>kmit_student</span>
+  </a>
+  <link rel="stylesheet" href="copy.css">
+  </header>
+
+ <script>
+  const track = document.getElementById("image-track");
+
+const handleOnDown = e => track.dataset.mouseDownAt = e.clientX;
+
+const handleOnUp = () => {
+  track.dataset.mouseDownAt = "0";  
+  track.dataset.prevPercentage = track.dataset.percentage;
+}
+
+const handleOnMove = e => {
+  if(track.dataset.mouseDownAt === "0") return;
+  
+  const mouseDelta = parseFloat(track.dataset.mouseDownAt) - e.clientX,
+        maxDelta = window.innerWidth / 2;
+  
+  const percentage = (mouseDelta / maxDelta) * -100,
+        nextPercentageUnconstrained = parseFloat(track.dataset.prevPercentage) + percentage,
+        nextPercentage = Math.max(Math.min(nextPercentageUnconstrained, 0), -100);
+  
+  track.dataset.percentage = nextPercentage;
+  
+  track.animate({
+    transform: `translate(${nextPercentage}%, -50%)`
+  }, { duration: 1200, fill: "forwards" });
+  
+  for(const image of track.getElementsByClassName("image")) {
+    image.animate({
+      objectPosition: `${100 + nextPercentage}% center`
+    }, { duration: 1200, fill: "forwards" });
+  }
+}
+
+/* -- Had to add extra lines for touch events -- */
+
+window.onmousedown = e => handleOnDown(e);
+
+window.ontouchstart = e => handleOnDown(e.touches[0]);
+
+window.onmouseup = e => handleOnUp(e);
+
+window.ontouchend = e => handleOnUp(e.touches[0]);
+
+window.onmousemove = e => handleOnMove(e);
+
+window.ontouchmove = e => handleOnMove(e.touches[0]);
+ </script>

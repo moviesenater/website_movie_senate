@@ -1,0 +1,27 @@
+#head{
+    height: 35px;
+    width: 400px;
+    margin: 32;
+    padding: 10px 10px 10px -5px;
+    display: flex;
+    font-family: 'Popins',sans-serif;
+    box-sizing: border-box;
+    background-color: white;
+    align-items: center;
+    
+}
+form input{
+    flex: 1;
+    border: none;
+    outline: none;
+}
+form button{
+    background: tomato;
+    padding: 10px 20px 10px 20px ;
+    border:none;
+    outline:none;
+    color:#fff;
+    letter-spacing: 1;
+    cursor: pointer;
+
+}
